@@ -1,0 +1,26 @@
+### TODO
+
+- [x] Add base pom.xml
+- [x] Add application.yaml profiles
+- [x] Add simple example model following package by feature
+- [x] Configure r2dbc connection factory
+- [x] Configure actuator (health, probes, metrics)
+- [x] Configure Logging
+- [x] Add Services
+- [x] Add Controllers / Handlers (REST)
+- [x] Add error handling
+- [x] Add flyway
+- [x] Add Repositories
+- [x] Add test-containers as spring auto-config project??
+- [x] Configure r2dbc-pool
+- [x] Add Docker file
+- [x] Add docker-compose
+- [x] Add correlationID
+- [x] Extract logging config to new spring auto-config project
+- [x] Extract r2dbc config to new spring auto-config project
+- [x] Add Makefile????
+- [x] Add CORS Bean????
+- [x] Add multi-maven with api and app
+- [ ] Add Jenkins file
+- [ ] Add ETAGs Bean????
+- [ ] Add Controllers / Handlers (GraphQL??)

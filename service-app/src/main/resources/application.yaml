@@ -1,0 +1,64 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ConsumerTechServiceTemplate
+  r2dbc:
+    url: ${SERVICE_DATABASE_R2DBC_URL}
+    username: ${SERVICE_DATABASE_USERNAME}
+    password: ${SERVICE_DATABASE_PASSWORD}
+    pool:
+      initial-size: ${SERVICE_DATABASE_INITIAL_POOL_SIZE:10}
+      max-size: ${SERVICE_DATABASE_MAXIMUM_POOL_SIZE:10}
+  flyway:
+    url: ${SERVICE_DATABASE_URL}
+    user: ${SERVICE_DATABASE_ADMIN_USERNAME} #user with DDL privileges
+    password: ${SERVICE_DATABASE_ADMIN_PASSWORD}
+    locations: classpath:db/migration
+
+management:
+  server:
+    port: ${SERVER_MANAGEMENT_PORT:8085}
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: /
+      exposure:
+        include: health,prometheus,info,liveness
+      path-mapping:
+        health: health/ready
+        liveness: health/live
+        prometheus: metrics
+        info: info
+  endpoint:
+    health:
+      enabled: true
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+  info:
+    git:
+      enabled: true
+      mode: simple
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: "Project description here"
+    encoding: "UTF-8"
+    java:
+      version: ${java.runtime.version}
+
+logging:
+  correlationId:
+    request:
+      header:
+        name: X-Amzn-Trace-Id
+app:
+  services:
+    beverage:
+      url: ${SERVICE_BEVERAGES_URL}
+
+

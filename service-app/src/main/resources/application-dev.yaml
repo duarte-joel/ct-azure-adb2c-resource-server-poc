@@ -1,0 +1,30 @@
+management:
+  endpoint:
+    health:
+      show-details: always
+    mappings:
+      enabled: true
+
+logging:
+  config: classpath:log4j2-dev.xml
+  level:
+    com:
+      carlsberg:
+        consumertech: debug
+
+spring:
+  r2dbc:
+    url: r2dbc:mysql://localhost/servicetemplate
+    username: carlsberg
+    password: carlsberg
+  flyway:
+    url: jdbc:mysql://localhost/servicetemplate
+    user: carlsberg
+    password: carlsberg
+
+app:
+  services:
+    beverage:
+      url: "http://localhost:8080"
+
+

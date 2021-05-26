@@ -1,0 +1,8 @@
+logging:
+  config: classpath:log4j2-test.xml
+
+app:
+  services:
+    beverage:
+      url: "not-needed-for-tests"
+

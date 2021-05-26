@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  service-database-mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=carlsberg
+      - MYSQL_PASSWORD=carlsberg
+      - MYSQL_DATABASE=servicetemplate
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  service-template:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        - CX_NEXUS_USERNAME=${CX_NEXUS_USERNAME}
+        - CX_NEXUS_PASSWORD=${CX_NEXUS_PASSWORD}
+    depends_on:
+      - service-database-mysql
+    restart: on-failure
+    ports:
+      - 8080:8080
+      - 8085:8085
+    environment:
+      - SPRING_PROFILES_ACTIVE=cloud
+      - SERVICE_DATABASE_URL=jdbc:mysql://service-database-mysql/servicetemplate
+      - SERVICE_DATABASE_USERNAME=carlsberg
+      - SERVICE_DATABASE_ADMIN_USERNAME=carlsberg
+      - SERVICE_DATABASE_PASSWORD=carlsberg
+      - SERVICE_DATABASE_ADMIN_PASSWORD=carlsberg
+      - SERVICE_BEVERAGES_URL=http://localhost:8080
+    healthcheck:
+      #To check container health use: docker inspect <container> | jq '.[].State.Health'
+      test: ["CMD-SHELL", "curl -f http://localhost:8085/health/ready || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s

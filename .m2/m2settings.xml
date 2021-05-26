@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<settings>
+  <servers>
+    <server>
+      <id>cx-nexus-server</id>
+      <username>${env.CX_NEXUS_USERNAME}</username>
+      <password>${env.CX_NEXUS_PASSWORD}</password>
+    </server>
+  </servers>
+
+  <profiles>
+    <profile>
+      <id>cx-nexus-profile</id>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>cx-nexus-server</id>
+          <url>http://63.34.156.209/repository/maven-releases</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>cx-nexus-server</id>
+          <url>http://63.34.156.209/repository/maven-releases</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>cx-nexus-profile</activeProfile>
+  </activeProfiles>
+
+</settings>
